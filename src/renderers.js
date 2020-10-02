@@ -63,7 +63,14 @@ function TableCell(props) {
 }
 
 function Heading(props) {
-  return createElement(`h${props.level}`, getCoreProps(props), props.children)
+  const text = props.children.reduce(reduceTextChildren, []).join(' ')
+  const slug = text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z-]/g, '')
+
+  return createElement(`h${props.level}`, {id: slug}, props.children)
+  // return createElement(`h${props.level}`, getCoreProps(props), props.children)
 }
 
 function List(props) {
